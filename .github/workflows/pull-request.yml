@@ -25,6 +25,4 @@ jobs:
           envkey_DATABASE_URL: "postgresql://postgres:1234@db:5432/students"
           file_name: ".env"
       - name: Build the project on Docker environment
-        run: docker-compose up --build
-      - name: Take down the Docker container
-        run: docker-compose down   
+        run: docker-compose build 
