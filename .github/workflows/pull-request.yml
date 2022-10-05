@@ -6,7 +6,7 @@ jobs:
     steps: 
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Make a new env file
+      - name: Make a new env.test file
         uses: SpicyPizza/create-envfile@v1
         with: 
           envkey_POSTGRES_USER: "postgres"
@@ -16,5 +16,13 @@ jobs:
           file_name: ".env.test"
       - name: Run tests
         run:  docker-compose -f docker-compose-test.yml run node_app_students npm run test
+      - name: Make a new env file
+        uses: SpicyPizza/create-envfile@v1
+        with: 
+          envkey_POSTGRES_USER: "postgres"
+          envkey_POSTGRES_PASSWORD: "1234"
+          envkey_POSTGRES_DB: "students"
+          envkey_DATABASE_URL: "postgresql://postgres:1234@db:5432/students"
+          file_name: ".env"
       - name: Build the project on Docker environment
         run:  docker-compose up --build
